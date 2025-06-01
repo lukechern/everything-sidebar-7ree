@@ -1,0 +1,218 @@
+/* Collection 特有样式 */
+.collection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.collection-title {
+    font-weight: bold;
+    margin: 0;
+}
+
+.collection-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.collection-tree {
+    margin-top: 10px;
+}
+
+.tree-item {
+    padding: 2px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    min-height: 20px;
+}
+
+.tree-item:hover {
+    background-color: var(--vscode-list-hoverBackground);
+}
+
+.tree-item.active {
+    background-color: var(--vscode-list-activeSelectionBackground);
+    color: var(--vscode-list-activeSelectionForeground);
+}
+
+.tree-icon {
+    margin-right: 6px;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tree-icon svg {
+    width: 12px;
+    height: 12px;
+}
+
+.tree-folder {
+    font-weight: bold;
+}
+
+.tree-children {
+    margin-left: 20px;
+}
+
+.tree-item-content {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+}
+
+.tree-item-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--vscode-foreground);
+}
+.folder-toggle {
+    color: var(--vscode-foreground);
+    margin-right: 6px;
+    width: 12px;
+    height: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+
+.folder-toggle:hover {
+    opacity: 1;
+}
+
+.folder-toggle-placeholder {
+    margin-right: 6px;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+.dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+}
+.dialog {
+    background-color: var(--vscode-editor-background);
+    border: 1px solid var(--vscode-editorGroup-border);
+    border-radius: 4px;
+    padding: 16px;
+    width: 300px;
+    max-width: 90%;
+}
+.dialog-title {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 16px;
+}
+.dialog-message {
+    margin-bottom: 16px;
+    line-height: 1.4;
+    color: var(--vscode-foreground);
+}
+.dialog-input {
+    width: 100%;
+    padding: 6px 8px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 2px;
+}
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.dialog-button {
+    padding: 6px 12px;
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.dialog-button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+.dialog-button.secondary {
+    background-color: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+}
+.dialog-button.secondary:hover {
+    background-color: var(--vscode-button-secondaryHoverBackground);
+}
+.dialog-button.danger {
+    background-color: var(--vscode-errorForeground);
+    color: var(--vscode-button-secondaryForeground);
+}
+.dialog-button.danger:hover {
+    background-color: var(--vscode-errorForeground);
+    opacity: 0.8;
+}
+
+/* 拖拽样式 */
+.tree-item[draggable="true"] {
+    cursor: grab;
+}
+
+.tree-item.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+.tree-item.drag-over {
+    background-color: var(--vscode-list-dropBackground);
+    border: 2px dashed var(--vscode-focusBorder);
+}
+
+.tree-item[draggable="true"]:hover {
+    background-color: var(--vscode-list-hoverBackground);
+}
+
+/* 路径提示样式 */
+.path-tooltip-7ree {
+    position: absolute;
+    background-color: var(--vscode-editorHoverWidget-background);
+    color: var(--vscode-descriptionForeground);
+    border: 1px solid var(--vscode-editorHoverWidget-border);
+    border-radius: 3px;
+    padding: 4px 6px;
+    font-size: 0.85em;
+    font-family: var(--vscode-editor-font-family);
+    white-space: pre-wrap;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    max-width: 400px;
+    word-break: break-all;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16);
+}
+
+/* 右键菜单选中状态 */
+.tree-item.context-menu-selected {
+    border: 1px solid var(--vscode-focusBorder);
+    background-color: var(--vscode-list-focusBackground);
+}

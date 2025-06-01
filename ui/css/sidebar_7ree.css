@@ -1,0 +1,455 @@
+/* Sidebar 特有样式 */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.tabs {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0;
+    position: sticky;
+    top: 0;
+    background-color: var(--vscode-sideBar-background);
+    z-index: 100;
+    padding: 8px 0 8px 0;
+    border-bottom: 1px solid var(--vscode-panel-border);
+    flex-shrink: 0;
+}
+
+.tab-buttons {
+    display: flex;
+}
+
+.tab-button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: var(--vscode-foreground);
+}
+
+.tab-button.active {
+    border-bottom: 2px solid var(--color-accent);
+}
+
+.settings-icon-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--vscode-foreground);
+    padding: 4px;
+    border-radius: 3px;
+}
+
+.settings-icon-button:hover {
+    background-color: var(--vscode-toolbar-hoverBackground);
+}
+
+.search-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-top: 10px;
+}
+
+.search-input-container {
+    position: relative;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.external-search-button {
+    background: transparent;
+    border: none;
+    color: var(--vscode-input-foreground);
+    cursor: pointer;
+    padding: 8px 6px;
+    margin-right: 4px;
+    border-radius: 3px;
+    opacity: 0.7;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.external-search-button:hover {
+    opacity: 1;
+    background-color: var(--vscode-toolbar-hoverBackground);
+}
+
+.search-input {
+    flex: 1;
+}
+
+.clear-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--vscode-input-foreground);
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 0;
+    font-size: 12px;
+}
+
+.clear-button:hover {
+    opacity: 1;
+}
+
+.result-item {
+    padding: 6px 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 3px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.result-item:hover {
+    background-color: var(--vscode-list-hoverBackground);
+    transform: translateX(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result-item.active {
+    background-color: var(--vscode-list-activeSelectionBackground);
+    color: var(--vscode-list-activeSelectionForeground);
+}
+
+/* 右键菜单选中状态 */
+.result-item.context-menu-selected {
+    border: 1px solid var(--vscode-focusBorder);
+    background-color: var(--vscode-list-focusBackground);
+}
+
+.result-icon {
+    margin-right: 6px;
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-icon svg {
+    width: 12px;
+    height: 12px;
+}
+
+.result-name {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.result-path {
+    font-size: 0.85em;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+.collection-container {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding-top: 10px;
+}
+
+.settings-container {
+    display: none;
+    flex: 1;
+    padding: 10px;
+    background-color: var(--vscode-editor-background);
+    border: 1px solid var(--color-border);
+    overflow-y: auto;
+}
+
+/* Setting 特有样式 */
+.settings-group {
+    margin-bottom: 20px;
+    border: 1px solid var(--vscode-panel-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.settings-group-header {
+    color: var(--vscode-descriptionForeground);
+    background-color: var(--vscode-sideBarSectionHeader-background);
+    padding: 8px 12px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--vscode-panel-border);
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.settings-group-content {
+    padding: 12px;
+}
+
+.setting-item {
+    margin-bottom: 16px;
+}
+
+.setting-item:last-child {
+    margin-bottom: 0;
+}
+
+.setting-label {
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.setting-description {
+    margin-bottom: 8px;
+    color: var(--vscode-descriptionForeground);
+    font-size: 12px;
+}
+
+.setting-input {
+    width: 100%;
+    padding: 6px 8px;
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.setting-input:focus {
+    border-color: var(--vscode-focusBorder);
+    outline: none;
+}
+
+.setting-select {
+    width: 100%;
+    padding: 6px 8px;
+    background-color: var(--vscode-dropdown-background);
+    color: var(--vscode-dropdown-foreground);
+    border: 1px solid var(--vscode-dropdown-border);
+    border-radius: 2px;
+}
+
+.setting-checkbox {
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.setting-checkbox-label {
+    vertical-align: middle;
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.settings-button {
+    padding: 6px 12px;
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.settings-button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+.settings-button.secondary {
+    background-color: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+}
+
+.settings-button.secondary:hover {
+    background-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+/* 图标按钮样式 */
+.icon-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--vscode-input-foreground);
+    padding: 6px;
+    border-radius: 3px;
+    opacity: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+
+.icon-button:hover {
+    opacity: 1;
+    background-color: var(--vscode-toolbar-hoverBackground);
+}
+
+.icon-button svg {
+    color: var(--vscode-input-foreground);
+}
+
+.settings-help {
+    margin-top: 4px;
+    font-size: 11px;
+    color: var(--vscode-descriptionForeground);
+}
+
+.settings-status {
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 3px;
+    display: none;
+}
+
+.settings-status.success {
+    background-color: rgba(0, 128, 0, 0.1);
+    color: var(--vscode-gitDecoration-addedResourceForeground);
+    display: block;
+}
+
+.settings-status.error {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: var(--vscode-gitDecoration-deletedResourceForeground);
+    display: block;
+}
+
+.test-result {
+    margin-top: 8px;
+    padding: 8px;
+    border-radius: 3px;
+    display: none;
+}
+
+.test-result.success {
+    background-color: rgba(0, 128, 0, 0.1);
+    color: var(--vscode-gitDecoration-addedResourceForeground);
+    display: block;
+}
+
+.test-result.error {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: var(--vscode-gitDecoration-deletedResourceForeground);
+    display: block;
+}
+
+/* 帮助提示样式 */
+.help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--vscode-button-secondaryBackground);
+    color: var(--vscode-button-secondaryForeground);
+    font-size: 11px;
+    font-weight: bold;
+    cursor: help;
+    margin-left: 8px;
+}
+
+.help-icon:hover {
+    background-color: var(--vscode-button-secondaryHoverBackground);
+}
+
+.help-tooltip {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    background-color: var(--vscode-editorHoverWidget-background);
+    border: 1px solid var(--vscode-editorHoverWidget-border);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 0;
+    margin-top: 4px;
+    min-width: 200px;
+    max-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+.help-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.help-tooltip-content {
+    padding: 8px;
+    color: var(--vscode-editorHoverWidget-foreground);
+    font-size: 12px;
+    line-height: 1.4;
+    max-width: 160px;
+    font-weight: 300;
+}
+
+.help-tooltip-content strong {
+    color: var(--vscode-editor-foreground);
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* 路径提示样式（已改为状态栏显示，保留用于其他tooltip） */
+.custom-tooltip-7ree {
+    position: fixed;
+    background-color: var(--vscode-editorHoverWidget-background);
+    color: var(--vscode-editorHoverWidget-foreground);
+    border: 1px solid var(--vscode-editorHoverWidget-border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    max-width: 50vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.custom-tooltip-7ree.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 路径提示样式（用于状态栏显示前的旧版本） */
+.path-tooltip-7ree {
+    position: fixed;
+    background-color: var(--vscode-editorHoverWidget-background);
+    color: var(--vscode-editorHoverWidget-foreground);
+    border: 1px solid var(--vscode-editorHoverWidget-border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    max-width: 50vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

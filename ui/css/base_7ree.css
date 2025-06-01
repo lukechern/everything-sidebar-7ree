@@ -1,0 +1,297 @@
+/**
+ * Everything Sidebar 7ree 基础样式文件
+ * 提供主题适配和基础UI样式
+ */
+
+:root {
+  --color-bg: var(--vscode-sideBar-background);
+  --color-text: var(--vscode-sideBar-foreground);
+  --color-accent: var(--vscode-button-background);
+  --color-hover: var(--vscode-list-hoverBackground);
+  --color-border: var(--vscode-editorGroup-border);
+}
+
+/* 文件图标样式 */
+.file-icon {
+  font-size: 16px;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  text-decoration: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 6px;
+}
+
+/* 确保图标在不同容器中的对齐 */
+.result-icon .file-icon,
+.tree-icon .file-icon {
+  font-size: 12px;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+}
+
+/* VS Code Codicon 图标支持 */
+.codicon {
+  font-size: 12px;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  color: var(--vscode-icon-foreground);
+  text-decoration: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 确保图标在不同容器中的对齐 */
+.result-icon .codicon,
+.tree-icon .codicon {
+  font-size: 12px;
+  width: 12px;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--vscode-font-family);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--vscode-font-size);
+  overflow: hidden;
+}
+
+/* 通用容器样式 */
+.container {
+    padding: 10px;
+}
+
+.search-container {
+    padding: 10px;
+}
+
+.collection-container {
+    padding: 10px;
+}
+
+.settings-container {
+    padding: 10px;
+    font-size: 13px;
+}
+
+/* 通用输入框样式 */
+input {
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  border: 1px solid var(--vscode-input-border);
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+
+input:focus {
+  outline: 1px solid var(--vscode-focusBorder);
+}
+
+.search-input {
+    width: 100%;
+    padding: 6px 30px 6px 8px;
+    box-sizing: border-box;
+    background-color: var(--vscode-input-background);
+    color: var(--vscode-input-foreground);
+    border: 1px solid var(--vscode-input-border);
+    border-radius: 2px;
+}
+
+.search-input:focus {
+    outline: 1px solid var(--vscode-focusBorder);
+}
+
+.search-results {
+    margin-top: 10px;
+}
+
+/* 通用按钮样式 */
+.collection-button {
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 2px;
+    font-size: 12px;
+}
+
+.collection-button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+.dialog-button {
+    padding: 6px 12px;
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.dialog-button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+.settings-button {
+    padding: 6px 12px;
+    background-color: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.settings-button:hover {
+    background-color: var(--vscode-button-hoverBackground);
+}
+
+/* 通用上下文菜单样式 */
+.context-menu {
+    position: absolute;
+    background-color: var(--vscode-menu-background);
+    color: var(--vscode-menu-foreground);
+    border: 1px solid var(--vscode-menu-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    padding: 4px 0;
+    z-index: 1000;
+}
+
+.context-menu-item {
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.context-menu-item:hover {
+    background-color: var(--vscode-menu-selectionBackground);
+    color: var(--vscode-menu-selectionForeground);
+}
+
+/* 列表项样式 */
+.list-item {
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.list-item:hover {
+  background-color: var(--color-hover);
+}
+
+/* 分割线样式 */
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--color-border);
+  margin: 10px 0;
+}
+
+/* 通用加载样式 */
+.loading {
+    text-align: center;
+    padding: 10px;
+}
+
+.loading-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--vscode-button-background);
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 通用无结果样式 */
+.no-results {
+    padding: 10px;
+    text-align: center;
+    color: var(--vscode-descriptionForeground);
+}
+
+.empty-collection {
+    padding: 20px;
+    text-align: center;
+    color: var(--vscode-descriptionForeground);
+}
+
+/* 拖拽相关样式 */
+.dragging {
+    opacity: 0.5;
+    transform: rotate(2deg);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.drag-over {
+    background-color: var(--vscode-list-dropBackground) !important;
+    border: 2px dashed var(--vscode-focusBorder) !important;
+    border-radius: 4px;
+}
+
+.drag-over-top {
+    position: relative;
+}
+
+.drag-over-top::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: var(--vscode-focusBorder);
+    border-radius: 2px;
+    z-index: 10;
+}
+
+.drag-over-bottom {
+    position: relative;
+}
+
+.drag-over-bottom::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: var(--vscode-focusBorder);
+    border-radius: 2px;
+    z-index: 10;
+}
+
+/* 拖拽时的光标样式 */
+.tree-item[draggable="true"] {
+    cursor: grab;
+}
+
+.tree-item[draggable="true"]:active {
+    cursor: grabbing;
+}
+
+/* 拖拽时的动画效果 */
+.tree-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tree-item:hover {
+    transform: translateX(2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

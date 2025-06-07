@@ -279,7 +279,7 @@ hr {
 
 /* 拖拽时的光标样式 */
 .tree-item[draggable="true"] {
-    cursor: grab;
+    /* cursor: grab; */
 }
 
 .tree-item[draggable="true"]:active {

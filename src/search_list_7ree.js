@@ -57,6 +57,11 @@ class SearchListManager {
                     this.handleOpenFile(message.filePath);
                     handled = true;
                     break;
+                case 'openFileBeside':
+                    debugLog_7ree('SearchList', '[SearchListManager] Handling openFileBeside', message);
+                    this.handleOpenFileBeside_7ree(message.filePath);
+                    handled = true;
+                    break;
                 case 'addToCollection':
                     debugLog_7ree('SearchList', '[SearchListManager] Handling addToCollection', message);
                     this.handleAddToCollection(message.filePath);
@@ -223,6 +228,63 @@ class SearchListManager {
         } catch (error) {
             debugLog_7ree('SearchList', '打开文件失败', error);
             vscode.window.showErrorMessage(`无法打开文件: ${error.message}`);
+        }
+    }
+
+    /**
+     * 处理在侧边打开文件
+     * @param {string} filePath 文件路径
+     */
+    async handleOpenFileBeside_7ree(filePath) {
+        try {
+            debugLog_7ree('SearchList', `尝试在侧边打开文件: ${filePath}`);
+            
+            // 检查路径是否存在
+            const uri = vscode.Uri.file(filePath);
+            
+            // 检查是否为目录
+            let stat;
+            try {
+                stat = await vscode.workspace.fs.stat(uri);
+            } catch (statError) {
+                debugLog_7ree('SearchList', '文件不存在或无法访问', statError);
+                vscode.window.showErrorMessage(`文件不存在或无法访问: ${filePath}`);
+                return;
+            }
+            
+            // 如果是目录，打开路径
+            if (stat.type === vscode.FileType.Directory) {
+                debugLog_7ree('SearchList', '这是一个目录，打开路径');
+                await vscode.commands.executeCommand('revealFileInOS', uri);
+                return;
+            }
+            
+            // 如果是文件，尝试在侧边编辑器中打开
+            debugLog_7ree('SearchList', '正在在侧边编辑器中打开文件...');
+            
+            try {
+                // 尝试打开文本文档
+                const document = await vscode.workspace.openTextDocument(uri);
+                
+                // 在侧边编辑器中打开
+                await vscode.window.showTextDocument(document, {
+                    preview: false, // 不使用预览模式
+                    viewColumn: vscode.ViewColumn.Beside, // 在侧边编辑器组中打开
+                    preserveFocus: false // 聚焦到打开的文档
+                });
+                
+                debugLog_7ree('SearchList', '文件在侧边编辑器中打开成功');
+                
+            } catch (openError) {
+                debugLog_7ree('SearchList', '无法作为文本文档在侧边打开，尝试使用默认程序', openError);
+                
+                // 如果无法作为文本文档打开，使用系统默认程序
+                await vscode.env.openExternal(uri);
+            }
+            
+        } catch (error) {
+            debugLog_7ree('SearchList', '在侧边打开文件失败', error);
+            vscode.window.showErrorMessage(`无法在侧边打开文件: ${error.message}`);
         }
     }
 

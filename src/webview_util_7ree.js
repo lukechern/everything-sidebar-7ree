@@ -28,6 +28,12 @@ function getWebviewResourceUris_7ree(webview, extensionUri, pageType = 'sidebar'
             { name: 'sidebarMainJsUri', relativePath: 'ui/js/sidebar_main_7ree.js' },
             { name: 'folderIconUri', relativePath: 'ui/icons/folder_icon_7ree.svg' },
             { name: 'fileIconUri', relativePath: 'ui/icons/file_icon_7ree.svg' },
+            { name: 'settingsIconUri', relativePath: 'ui/icons/settings.svg' },
+            { name: 'searchIconUri', relativePath: 'ui/icons/search.svg' },
+            { name: 'manualAddIconUri', relativePath: 'ui/icons/manual-add_7ree.svg' },
+            { name: 'folderAddIconUri', relativePath: 'ui/icons/folder-add.svg' },
+            { name: 'refreshIconUri', relativePath: 'ui/icons/refresh.svg' },
+            { name: 'collapseAllIconUri', relativePath: 'ui/icons/collapse-all.svg' },
             { name: 'contextMenuHandlerJsUri', relativePath: 'ui/js/context_menu_handler_7ree.js' }
         ],
         search: [
@@ -49,8 +55,13 @@ function getWebviewResourceUris_7ree(webview, extensionUri, pageType = 'sidebar'
     // 批量转换为 webviewUri
     const uriMap = {};
     for (const res of resourceList) {
-        const absPath = vscode.Uri.joinPath(extensionUri, ...res.relativePath.split('/'));
-        uriMap[res.name] = webview.asWebviewUri(absPath);
+        try {
+            const absPath = vscode.Uri.joinPath(extensionUri, ...res.relativePath.split('/'));
+            uriMap[res.name] = webview.asWebviewUri(absPath);
+            console.log(`[webview_util_7ree] 成功生成URI: ${res.name} = ${uriMap[res.name]}`);
+        } catch (error) {
+            console.error(`[webview_util_7ree] 生成URI失败: ${res.name}, 路径: ${res.relativePath}`, error);
+        }
     }
     return uriMap;
 }

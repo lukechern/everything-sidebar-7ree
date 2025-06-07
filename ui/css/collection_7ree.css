@@ -174,7 +174,7 @@
 
 /* 拖拽样式 */
 .tree-item[draggable="true"] {
-    cursor: grab;
+    /* cursor: grab; */
 }
 
 .tree-item.dragging {

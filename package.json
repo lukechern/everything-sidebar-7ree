@@ -2,7 +2,7 @@
   "name": "everything-sidebar-7ree",
   "displayName": "Everything Sidebar 7ree",
   "description": "在VSCode边栏集成Everything搜索能力，实现快速文件搜索、点击打开、高亮、右键收藏等功能",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "publisher": "7ree",
   "icon": "resources/logo_7ree.png",
   "repository": {
@@ -20,6 +20,7 @@
     "onCommand:everything-sidebar-7ree.showSidebar",
     "onCommand:everything-sidebar-7ree.addToFavorites",
     "onCommand:everything-sidebar-7ree.searchWithEverything",
+    "onCommand:everything-sidebar-7ree.textSearch_7ree",
     "onStartupFinished"
   ],
   "main": "./extension.js",
@@ -33,6 +34,11 @@
         "command": "everything-sidebar-7ree.addToFavorites",
         "title": "添加到everything搜索收藏夹",
         "icon": "$(star)"
+      },
+      {
+        "command": "everything-sidebar-7ree.textSearch_7ree",
+        "title": "文本搜索",
+        "icon": "$(search-view-icon)"
       },
       {
         "command": "everything-sidebar-7ree.searchWithEverything",
@@ -50,9 +56,21 @@
       ],
       "editor/context": [
         {
-          "command": "everything-sidebar-7ree.searchWithEverything",
+          "command": "everything-sidebar-7ree.textSearch_7ree",
           "group": "4_search@1",
           "when": "editorHasSelection"
+        },
+        {
+          "command": "everything-sidebar-7ree.searchWithEverything",
+          "group": "4_search@2",
+          "when": "editorHasSelection"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "everything-sidebar-7ree.addToFavorites",
+          "group": "4_search@1",
+          "when": "resourceScheme == file"
         }
       ]
     },

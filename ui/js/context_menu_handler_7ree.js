@@ -43,6 +43,11 @@ class ContextMenuHandler_7ree {
     bindMenuEvents_7ree() {
         // 收藏项目菜单
         if (this.collectionContextMenu) {
+            const openBesideItem = document.getElementById('collection-menu-open-beside-7ree');
+            if (openBesideItem) {
+                openBesideItem.addEventListener('click', () => this.handleCollectionMenuOpenBeside_7ree());
+            }
+            
             const renameItem = document.getElementById('collection-menu-rename');
             if (renameItem) {
                 renameItem.addEventListener('click', () => this.handleCollectionMenuRename_7ree());
@@ -79,6 +84,11 @@ class ContextMenuHandler_7ree {
         
         // 搜索结果菜单
         if (this.searchContextMenu) {
+            const openBesideSearchItem = document.getElementById('menu-open-beside-7ree');
+            if (openBesideSearchItem) {
+                openBesideSearchItem.addEventListener('click', () => this.handleSearchMenuOpenBeside_7ree());
+            }
+            
             const addToCollectionItem = document.getElementById('menu-add-to-collection');
             if (addToCollectionItem) {
                 addToCollectionItem.addEventListener('click', () => this.handleSearchMenuAddToCollection_7ree());
@@ -433,6 +443,48 @@ class ContextMenuHandler_7ree {
      */
     setCurrentRightClickedItem_7ree(item) {
         this.currentRightClickedItem = item;
+    }
+
+    /**
+     * 处理收藏项目侧边打开菜单
+     */
+    handleCollectionMenuOpenBeside_7ree() {
+        if (this.currentRightClickedItem) {
+            const filePath = this.currentRightClickedItem.getAttribute('data-path');
+            if (filePath) {
+                this.vscode.postMessage({
+                    command: 'openFileBeside',
+                    filePath: filePath
+                });
+                
+                if (typeof webviewDebugLog === 'function') {
+                    webviewDebugLog('ContextMenuHandler', '收藏项目侧边打开', {
+                        filePath: filePath
+                    });
+                }
+            }
+        }
+    }
+
+    /**
+     * 处理搜索结果侧边打开菜单
+     */
+    handleSearchMenuOpenBeside_7ree() {
+        if (this.currentRightClickedItem) {
+            const filePath = this.currentRightClickedItem.getAttribute('data-path');
+            if (filePath) {
+                this.vscode.postMessage({
+                    command: 'openFileBeside',
+                    filePath: filePath
+                });
+                
+                if (typeof webviewDebugLog === 'function') {
+                    webviewDebugLog('ContextMenuHandler', '搜索结果侧边打开', {
+                        filePath: filePath
+                    });
+                }
+            }
+        }
     }
 }
 

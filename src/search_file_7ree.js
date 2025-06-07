@@ -52,6 +52,11 @@ class SearchFileManager {
                     this.openFile(message.filePath);
                     handled = true;
                     break;
+                case 'openFileBeside':
+                    debugLog_7ree('SearchFile', '[SearchFileManager] Handling openFileBeside', message);
+                    this.openFileBeside_7ree(message.filePath);
+                    handled = true;
+                    break;
                 case 'addToCollection':
                     debugLog_7ree('SearchFile', '[SearchFileManager] Handling addToCollection', message);
                     this.addToCollection(message.filePath);
@@ -117,6 +122,38 @@ class SearchFileManager {
         } catch (error) {
             debugLog_7ree('SearchFile', '打开文件失败', error);
             vscode.window.showErrorMessage(`无法打开文件: ${error.message}`);
+        }
+    }
+
+    /**
+     * 在侧边打开文件
+     * @param {string} filePath 文件路径
+     */
+    async openFileBeside_7ree(filePath) {
+        try {
+            debugLog_7ree('SearchFile', `侧边打开文件: ${filePath}`);
+            
+            // 检查文件是否存在
+            if (!fs.existsSync(filePath)) {
+                throw new Error(`文件不存在: ${filePath}`);
+            }
+            
+            // 判断是否是文件夹
+            const stats = fs.statSync(filePath);
+            if (stats.isDirectory()) {
+                // 如果是文件夹，则打开路径
+                vscode.commands.executeCommand('revealFileInOS', vscode.Uri.file(filePath));
+                return;
+            }
+            
+            // 在侧边打开文本文档
+            const document = await vscode.workspace.openTextDocument(filePath);
+            await vscode.window.showTextDocument(document, vscode.ViewColumn.Beside);
+            
+            debugLog_7ree('SearchFile', `成功在侧边打开文件: ${filePath}`);
+        } catch (error) {
+            debugLog_7ree('SearchFile', '侧边打开文件失败', error);
+            vscode.window.showErrorMessage(`无法在侧边打开文件: ${error.message}`);
         }
     }
 

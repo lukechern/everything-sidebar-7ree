@@ -303,6 +303,14 @@
     color: var(--vscode-input-foreground);
 }
 
+.icon-button img {
+    opacity: 0.8;
+}
+
+.icon-button:hover img {
+    opacity: 1;
+}
+
 .settings-help {
     margin-top: 4px;
     font-size: 11px;

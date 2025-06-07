@@ -25,6 +25,8 @@ class FolderManager_7ree {
         this.folderContextMenu = document.getElementById('folder-context-menu');
         this.confirmDeleteDialog = document.getElementById('confirm-delete-dialog');
         this.deleteMessage = document.getElementById('delete-message');
+        this.manualAddDialog = document.getElementById('manual-add-dialog-7ree');
+        this.manualAddPathInput = document.getElementById('manual-add-path-input-7ree');
         
         // 绑定事件监听器
         this.bindEventListeners_7ree();
@@ -34,6 +36,14 @@ class FolderManager_7ree {
      * 绑定事件监听器
      */
     bindEventListeners_7ree() {
+        // 手动添加收藏按钮点击事件
+        const manualAddButton = document.getElementById('manual-add-button-7ree');
+        if (manualAddButton) {
+            manualAddButton.addEventListener('click', () => {
+                this.showManualAddDialog_7ree();
+            });
+        }
+
         // 创建文件夹按钮点击事件
         const createFolderButton = document.getElementById('create-folder-button');
         if (createFolderButton) {
@@ -98,6 +108,22 @@ class FolderManager_7ree {
             });
         }
 
+        // 确认手动添加收藏
+        const confirmManualAdd = document.getElementById('confirm-manual-add-7ree');
+        if (confirmManualAdd) {
+            confirmManualAdd.addEventListener('click', () => {
+                this.confirmManualAdd_7ree();
+            });
+        }
+
+        // 取消手动添加收藏
+        const cancelManualAdd = document.getElementById('cancel-manual-add-7ree');
+        if (cancelManualAdd) {
+            cancelManualAdd.addEventListener('click', () => {
+                this.cancelManualAdd_7ree();
+            });
+        }
+
         // 文件夹上下文菜单项点击事件
         // 注意：文件夹重命名菜单现在由ContextMenuHandler直接处理
         // 这里不再需要绑定事件，因为逻辑已移至context_menu_handler_7ree.js中
@@ -143,6 +169,19 @@ class FolderManager_7ree {
             });
         }
 
+        // 手动添加收藏对话框的键盘事件
+        if (this.manualAddPathInput) {
+            this.manualAddPathInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    this.confirmManualAdd_7ree();
+                } else if (event.key === 'Escape') {
+                    event.preventDefault();
+                    this.cancelManualAdd_7ree();
+                }
+            });
+        }
+
         // 全局键盘事件处理
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
@@ -150,6 +189,13 @@ class FolderManager_7ree {
                 if (this.renameDialog && this.renameDialog.style.display === 'flex') {
                     event.preventDefault();
                     this.cancelRename_7ree();
+                    return;
+                }
+                
+                // 处理手动添加收藏对话框
+                if (this.manualAddDialog && this.manualAddDialog.style.display === 'flex') {
+                    event.preventDefault();
+                    this.cancelManualAdd_7ree();
                     return;
                 }
                 
@@ -175,6 +221,14 @@ class FolderManager_7ree {
                     document.activeElement !== this.renameInput) {
                     event.preventDefault();
                     this.confirmRename_7ree();
+                    return;
+                }
+                
+                // 手动添加收藏对话框
+                if (this.manualAddDialog && this.manualAddDialog.style.display === 'flex' && 
+                    document.activeElement !== this.manualAddPathInput) {
+                    event.preventDefault();
+                    this.confirmManualAdd_7ree();
                     return;
                 }
                 
@@ -483,6 +537,66 @@ class FolderManager_7ree {
      */
     setCurrentRightClickedItem_7ree(item) {
         this.currentRightClickedCollectionItem = item;
+    }
+
+    /**
+     * 显示手动添加收藏对话框
+     */
+    showManualAddDialog_7ree() {
+        if (this.manualAddPathInput && this.manualAddDialog) {
+            this.manualAddPathInput.value = '';
+            this.manualAddDialog.style.display = 'flex';
+            this.manualAddPathInput.focus();
+            // 清除之前的验证错误
+            this.clearValidationError_7ree(this.manualAddPathInput);
+        }
+    }
+
+    /**
+     * 确认手动添加收藏
+     */
+    confirmManualAdd_7ree() {
+        if (this.manualAddPathInput && this.manualAddDialog) {
+            const filePath = this.manualAddPathInput.value.trim();
+            if (filePath) {
+                console.log('[UI] Sending addToCollection message for path:', filePath);
+                
+                // 提取文件名作为显示名称
+                const fileName = filePath.split(/[/\\]/).pop() || filePath;
+                
+                this.vscode.postMessage({
+                    command: 'addToCollection',
+                    filePath: filePath,
+                    name: fileName
+                });
+                
+                this.manualAddDialog.style.display = 'none';
+                
+                // 显示成功提示
+                if (typeof webviewDebugLog === 'function') {
+                    webviewDebugLog('FolderManager', '手动添加收藏', {
+                        filePath: filePath,
+                        fileName: fileName
+                    });
+                }
+            } else {
+                // 显示错误提示
+                this.showValidationError_7ree(this.manualAddPathInput, '文件路径不能为空');
+            }
+        }
+    }
+
+    /**
+     * 取消手动添加收藏
+     */
+    cancelManualAdd_7ree() {
+        if (this.manualAddDialog) {
+            this.manualAddDialog.style.display = 'none';
+            // 清除验证错误
+            if (this.manualAddPathInput) {
+                this.clearValidationError_7ree(this.manualAddPathInput);
+            }
+        }
     }
 }
 

@@ -190,6 +190,51 @@ function activate(context) {
         }
     });
     context.subscriptions.push(searchWithEverythingCommand);
+
+    // 注册文本搜索命令
+    const textSearchCommand_7ree = vscode.commands.registerCommand('everything-sidebar-7ree.textSearch_7ree', async () => {
+        try {
+            debugLog_7ree('Extension', '[textSearch_7ree] 收到文本搜索请求');
+            
+            // 获取当前活动编辑器
+            const activeEditor = vscode.window.activeTextEditor;
+            if (!activeEditor) {
+                vscode.window.showErrorMessage('没有活动的编辑器');
+                return;
+            }
+
+            // 获取选中的文本
+            const selection = activeEditor.selection;
+            const selectedText = activeEditor.document.getText(selection);
+            
+            if (!selectedText || selectedText.trim() === '') {
+                vscode.window.showErrorMessage('请先选择要搜索的文本');
+                return;
+            }
+
+            debugLog_7ree('Extension', '[textSearch_7ree] 选中的文本', selectedText);
+
+            // 1. 激活VSCode左侧搜索边栏
+            await vscode.commands.executeCommand('workbench.view.search');
+            
+            // 2. 将选中文本发送到搜索框
+            await vscode.commands.executeCommand('workbench.action.findInFiles', {
+                query: selectedText.trim(),
+                triggerSearch: true,
+                matchWholeWord: false,
+                isCaseSensitive: false,
+                isRegex: false
+            });
+            
+            debugLog_7ree('Extension', '[textSearch_7ree] 已激活搜索边栏并设置搜索文本');
+            vscode.window.showInformationMessage(`正在搜索文本: "${selectedText.trim()}"`);
+            
+        } catch (error) {
+            debugLog_7ree('Extension', '[textSearch_7ree] 文本搜索失败', error);
+            vscode.window.showErrorMessage(`文本搜索失败: ${error.message}`);
+        }
+    });
+    context.subscriptions.push(textSearchCommand_7ree);
     
     // 注册WebView视图提供者
     const view = vscode.window.registerWebviewViewProvider(
@@ -605,6 +650,7 @@ class EverythingSidebarViewProvider {
 
         // 替换模板变量
         for (const [key, value] of Object.entries(uris_7ree)) {
+            debugLog_7ree('WebView', `URI替换: ${key} = ${value}`);
             htmlContent = htmlContent.replace(new RegExp(`{{${key}}}`, 'g'), value);
         }
 
